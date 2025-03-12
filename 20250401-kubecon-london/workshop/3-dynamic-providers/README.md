@@ -140,3 +140,29 @@ and secret with connection stringds returned to the consumer workspace.
 
 Now imagine you have cluster, serving as provider and every user gets its own workspace where they can provision any resources they want.
 Ultimate Cloud Native Platform as a Service.
+
+
+# Bind application provider to same workspace (different team, giving different service)
+
+k ws use root:providers
+k ws create application --enter
+kubectl apply -f ./apis/apiresourceschema-applications.apis.contrib.kcp.io.yaml
+kubectl apply -f ./aois/apiexport-apis.contrib.kcp.io.yaml
+
+Run mcp controller:
+
+# TODO: add bianry download for it
+
+Go back to pg workspace:
+kubectl ws use root:consumers:pg
+kubectl kcp bind apiexport root:providers:application:apis.contrib.kcp.io 
+# Accepts secrets
+  permissionClaims:
+    - group: ""
+      resource: "secrets"
+      state: Accepted
+      all: true
+
+# create an application
+
+kubectl apply -f ./apis/apis_v1alpha1_application.yaml

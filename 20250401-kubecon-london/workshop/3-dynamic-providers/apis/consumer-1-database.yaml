@@ -1,9 +1,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: db-one
+  name: db-launchpage
 spec:
-  name: one
+  name: launchpage
   owner: app
   cluster:
     name: kcp
